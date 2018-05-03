@@ -20,9 +20,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (!empty($_FILES['archivo'])){
 			if (is_uploaded_file($_FILES['archivo']['tmp_name'])){
 				// Datos del fichero
+				$ruta = $_FILES['archivo']['tmp_name'];
 				$name = $_FILES['archivo']['name'];	// nombre del archivo
 				$tamanio = $_FILES['archivo']['size']; //tamaño del archivo
-				$nruta = 'files/archivo/'.$name;	//nueva direccion
+				$nruta = 'files/'.$name;	//nueva direccion
 				$array = explode('.', $name); //split con .
 				$ext = end($array);	// Obtenemos la extensión el archivo
 				$pdf = 'pdf';
@@ -38,6 +39,28 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				$error[] = 'Olvidó introducir el Archivo';
 			}
 	}
+     if (empty($errores)) {
+    	if(move_uploaded_file($ruta, $nruta)){
+    		if (move_uploaded_file($rutaTemporalR, $rutaR)) {
+    			$query = "CALL inscribirArchivo('$folio','$rutaC','$rutaR')";
+				$resultado = mysqli_query($conexion,$query);
+				if ($resultado) {
+					$mensaje = "";
+				}
+				else{
+					$errores[] = mysqli_error($conexion);
+				}
+    		}
+			else{
+				$errores [] = "Su recibo de pago no pudo ser almacenado correctamente";
+				unlink($rutaC);
+			}
+		}
+		else{
+			$errores[]="Su cedula de registro no pudo ser almacenada correctamente";
+		}
+	}
+
 }
 
 ?>

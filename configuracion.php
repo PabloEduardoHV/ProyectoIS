@@ -11,12 +11,14 @@ include 'includes/menu.php'; // incluir en diseño del menú a la página
 
 <form id="form" method="post" action="configuracion.php">
 			<fieldset class="centrado">
-				<label for="titulo" class="label titulo centrado">CAMBIAR CONTRASEÑA</label>
+                <label for="titulo" class="label titulo centrado"><b>CAMBIAR CONTRASEÑA</b></label>
 				<br><br>
 				<label for="info" class="txt area">Contraseña:</label>
-				<input type="text" id="info" class="pw lab info" name="info" value="<?php if(isset($_POST['info'])) echo $_POST['info']; ?>">
+				<input type="password" class="pw" id="password" name="password">
+                <br>
                 <label for="info" class="txt area">Nueva contraseña:</label>
-                <input type="text" id="info" class="pw lab info" name="info" value="<?php if(isset($_POST['info'])) echo $_POST['info']; ?>">
+                <input type="password" class="pw" id="password" name="password">
+                <br>
 				<div class="error centrado">
 					<span class="error">
 						<?php
@@ -28,10 +30,8 @@ include 'includes/menu.php'; // incluir en diseño del menú a la página
 						?>
 					</span>
 				</div><br>
-				
 					<button class="boton">Guardar</button>
 					<button class="boton" type="reset">Limpiar</button>
-				</center>
 			</fieldset>
 		</form>
 	</div>

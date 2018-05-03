@@ -5,7 +5,42 @@
 		}
 		else{
 			$password = trim($_POST['password']);
-		}	
+        }
+        /////////ESTO NO ESTA ACOMODADO////////////////////////
+        $query = "call buscarUsuario('$password')";
+        $resultado = mysqli_query($conexion, $query);
+
+        if ($resultado) {
+            $num = mysqli_num_rows($resultado);
+            if($num>0){
+                $cuenta = array();
+
+                while($fila = mysqli_fetch_assoc($resultado)){
+                        $cuenta['tipo']=$fila['tipo'];
+                }
+				//Liberar el resultado
+                mysqli_free_result($resultado);
+				//Iniciar la sesión
+                session_start();   
+                $_SESSION['contraseña'] = $password;  
+
+                if($cuenta['tipo']=='admin'){
+                        $_SESSION['tipo'] = 'admin';
+                        header ("Location: crear.php");
+                }
+                elseif($cuenta['tipo']=='admin2'){
+                        $_SESSION['tipo'] = 'admin2';
+                        header("Location: crear.php");
+                }
+            }
+            else{
+                    $error = "Usuario o contraseña equivocada";
+            }
+        }
+        else{
+            $error = "Por el momento no se puede iniciar sesión";
+        }
+
 	}
 ?>
 <!DOCTYPE html>
@@ -13,6 +48,7 @@
 <head>
 	<title>Iniciar sesión</title>
 	<link rel="stylesheet" type="text/css" href="comun/css/estilo.css">
+    <meta charset="utf-8">
 </head>
 <body class="centrado">
 	<aside class="aside">
@@ -24,9 +60,9 @@
 	<div class="fondo">
 		<div class="container">
 			<form id="form" method="post"	action="login.php">
-				<h1 class="titulo">INICIAR SESIÓN</h1>
 				<fieldset>
-					<label for="password" class="label">Contraseña:</label>
+                    <h1 class="titulo">INICIAR SESIÓN</h1>
+					<label for="password" class="label">Contraseña:</label><br>
 					<input type="password" class="pw" id="password" name="password">
 					<div>
 						<span class="error">
