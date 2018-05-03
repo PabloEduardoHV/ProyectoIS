@@ -39,6 +39,30 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				$error[] = 'Olvidó introducir el Archivo';
 			}
 	}
+    //Una opcion para revisar
+    if (empty($error)){
+
+			// Preparar consulta
+			$query = "call i_archivo ('$archivo','$folio','$curso')";
+
+			// Ejecutar consulta
+			$resultado = mysqli_query($conexion, $query);
+
+			// Si el resultado tuvo éxito entonces recargar página
+			if ($resultado){
+				move_uploaded_file($ruta, $archivo);	// mover a nueva dirección
+				echo '<script>alert("¡Gracias! Archivo enviado")</script>';				
+				echo "<script>location.href='archivo.php'</script>";
+			}
+			else{
+				echo '<h2 class="error">¡Error del sistema!</h2>';
+				echo '<p>Lo sentimos el servidor está en mantenimiento, intente más tarde</p>';
+
+				// Debuggin message:
+				echo '<p>'.mysqli_error($conexion).'<br>Query: '.$query.'</p>';
+			}
+		}
+	//Otra opcion con mas validaciones, pero falta la query de insertar
      if (empty($errores)) {
     	if(move_uploaded_file($ruta, $nruta)){
     		if (move_uploaded_file($rutaTemporalR, $rutaR)) {
