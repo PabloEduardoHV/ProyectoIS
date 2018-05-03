@@ -1,6 +1,6 @@
 <?php
 	
-	include ("plan.php");//JulioMeLaPela
+	include ("plan.php");//JulioMeLaPelaBienSabrozo
 		// Conectar a la base de datos
 		require ("../mysqli_connect_is.php");
 		
