@@ -83,8 +83,26 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
 		// Si el resultado tuvo éxito, entonces recargar página
 		if ($resultado){
-			echo '<script>alert("¡Gracias! anuncio guardado con éxito")</script>';				
-			echo "<script>location.href='cedula.php'</script>";
+			mysqli_next_result($conexion);
+			mysqli_free_result($resultado);
+			$query1 = "select LAST_INSERT_ID() as id from anuncio";
+			$res1 = mysqli_query($conexion, $query1);
+			if($res1){
+			//$id = mysqli_insert_id($conexion);
+				echo '<script>alert("¡Gracias! anuncio guardado con éxito")</script>';
+				while ($row = mysqli_fetch_assoc($res1)) {
+					$id = $row['id'];				
+					echo '<script>location.href="cedula.php?id='.$id.'"</script>';
+				}
+				mysqli_free_result($res1);
+			}
+			else{
+			echo '<h2 class="error">¡Error del sistema!</h2>';
+			echo '<p>Lo sentimos el servidor está en mantenimiento, intente más tarde</p>';
+
+			// Debuggin message:
+			echo '<p>'.mysqli_error($conexion).'<br>Query: '.$query1.'</p>';
+			}
 		}
 		else{
 			echo '<h2 class="error">¡Error del sistema!</h2>';
