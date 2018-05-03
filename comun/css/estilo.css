@@ -1,0 +1,210 @@
+html,body{
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	
+}
+
+body{
+	background-color: #D4AF37;
+}
+
+figure{
+	margin:0px;
+}
+
+header, nav{
+	background-color: #f1f1f1;
+	display: block;
+	text-align: center;
+	font-family: "Monotype Corsiva";
+	font-size: 1.35em;
+}
+
+nav ul{
+	padding: 10px;
+	list-style: none;
+	background-color: black;
+}
+
+li{
+	line-height: 1.25em;
+	display: inline-block;
+	font-family: "Monotype Corsiva";
+	font-size: 1.25em;
+}
+
+li a{
+	color: white;
+	text-decoration: none;
+	padding:7px 7px;
+}
+
+li a:hover{
+	background-color: #BDBDBD;
+}
+
+li a:active{
+	background-color: gray;
+	color: white;
+}
+
+a{
+	color: #339933;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.desplegable{
+	position: relative;
+	display: inline-block;
+	margin: 0;
+}
+
+li.contenido{
+	margin: 0px;
+}
+
+.desplegable:hover .contenido{
+	display: block;
+}
+
+.contenido{
+	display: none;
+	position: absolute;
+	z-index: 1;
+
+}
+
+.desp{
+	font-size: 1em;
+}
+
+.login-icon{
+	float: right;
+}
+
+.aside{
+	float: left;
+	width: 100px;
+	height: 100%;
+	margin: 10px;
+	background: url("../imagenes/pawprint.png"), url("../imagenes/pawprint2.png");
+	background-size: 100%;
+}
+
+.aside2{
+	height: 100%;
+	background: url("../imagenes/pawprint.png"), url("../imagenes/pawprint2.png");
+	background-size: 100%;
+}
+
+.float{
+	float: right;
+	height: 100%;
+	width: 100px;
+	margin: 10px;
+}
+
+.container{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 50%;
+	height: 70%;
+	margin: auto;
+}
+
+.fondo{
+	width: 85%;
+	height: 100%;
+	margin:0 auto;
+	background-color: #4A413F;
+}
+
+.centrado{
+	text-align: center;
+}
+
+.boton{
+	border-radius: 20px;
+	background-color: blue;
+	color: white;
+	font-size: 1.1em;
+	margin: 20px;
+	padding: 10px 30px;
+}
+
+fieldset{
+	background-color: white;
+	padding: 75px;
+	box-shadow: 7px 7px 15px black;
+}
+
+.label{
+	font-size: 1.5em;
+}
+
+.pw{
+	padding: 10px;
+	font-size: 1.2em;
+	background-color:#BCBCBC;
+	box-shadow: 2px 2px gray inset;
+}
+
+.titulo{
+	color: brown;
+}
+
+.error{
+	color: red;
+}
+
+.ledpard{
+	color: #F4D03F;
+	font-size: 50px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.txt{
+	cursor: pointer;
+	display: inline-block;
+	text-align: right;
+	font-weight: bold;
+	font-size: 1.7em;
+	width: 20%;
+	margin-top: 10px;
+}
+
+.area{
+	vertical-align: top;
+}
+
+.lab{
+	width: 70%;
+}
+ textarea{
+ 	resize: none;
+ 	height: 140px;
+ }
+
+#fondo {
+	width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 990;opacity: 0.8;background:#000;
+}
+#flotante {
+	z-index: 999;
+	border: 8px solid #fff;
+	margin-top: -756px;
+	margin-left: -153px;
+	top: 37%;
+	left: 23%;
+	padding: 12px;
+	position: fixed;
+	width: 1075px;
+	height: 400px;
+	background-color: #fff;
+	border-radius: 3px;
+}
