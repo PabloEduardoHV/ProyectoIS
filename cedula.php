@@ -1,13 +1,20 @@
 <?php
 	
-	include ("plan.php");//JulioMeLaPelaBienSabrozo
+		include ("plan.php");
+		
+		if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) // desde paginas.php
+			$id = $_GET['id'];
+		else { // ID inválido, salir del script
+			echo '<p class="error">Esta página se intentó acceder por error</p>';
+			exit();
+		}
+
 		// Conectar a la base de datos
 		require ("../mysqli_connect_is.php");
 		
-		$id = mysqli_insert_id($conexion);
-		echo "<script>alert('$id')</script>";
+
 		// Estructurar el Procedimiento Almacenado y Ejecutarlo
-		$query = "call r_pdf('$id')";
+		$query = "call r_pdf($id)";
 		$resultado = mysqli_query($conexion, $query);
 	
 		// Utilizamos clase PDF
@@ -27,5 +34,5 @@
 			$pdf->Cell(20);
 			$pdf->MultiCell(150,5,utf8_decode($row['informacion']),0,'J',0); // información
 		}
-	//$pdf->Output('D','Anuncio');
+		$pdf->Output('F','files/anuncio_'.$id);
 ?>
