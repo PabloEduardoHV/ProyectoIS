@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="comun/css/estilo.css">
 	<script type="text/javascript" src="comun/js/jquery.js"></script>
 	<script type="text/javascript" src="comun/js/ventana.js"></script>
+    <meta charset="utf-8">
 </head>
 <body>
 	<aside class="aside">

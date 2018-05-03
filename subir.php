@@ -20,9 +20,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (!empty($_FILES['archivo'])){
 			if (is_uploaded_file($_FILES['archivo']['tmp_name'])){
 				// Datos del fichero
-				$ruta = $_FILES['archivo']['tmp_name'];	// dirección temporal
 				$name = $_FILES['archivo']['name'];	// nombre del archivo
-				$tama = $_FILES['archivo']['size']; //tamaño del archivo
+				$tamanio = $_FILES['archivo']['size']; //tamaño del archivo
 				$nruta = 'files/archivo/'.$name;	//nueva direccion
 				$array = explode('.', $name); //split con .
 				$ext = end($array);	// Obtenemos la extensión el archivo
