@@ -24,10 +24,9 @@ create table ARCHIVO(
 	id int auto_increment,
     publicado bool not null default 0,
 	archivo varchar(50),
+    titulo varchar(50),
     constraint pk_ARCHIVO primary key ARCHIVO(id)
 );
-
-drop table ARCHIVO;
 
 -- Mayo/02
 -- Notas: Boolean es un tinyint(1), es decir toma solo 0-1, para falso-verdadero, respectivamente
@@ -147,11 +146,10 @@ delimiter ;
 drop procedure if exists guardarArchivo;
 -- Guarda archivo, pidiendo todo menos id, que es autoincrement y publicado, que toma false por defecto
 delimiter $$
-create procedure guardarArchivo(in arch varchar(50), in f_i date, in f_f date, in h_i time,
-in h_f time)
+create procedure guardarArchivo(in arch varchar(50), in tit varchar(50))
 	begin
-		insert into ARCHIVO(archivo, fecha_subida,fecha_vigencia,hora_inicio,hora_fin) 
-        values (arch, f_i,f_f,h_i,h_f,plan);
+		insert into ARCHIVO(archivo, titulo) 
+        values (arch, tit);
     end$$
 delimiter ;
 
@@ -238,32 +236,6 @@ create procedure getArchivosNoPublicados()
 delimiter ;
 
     
--- #COSAS DE USTEDES###############################################################################################--
-    
-drop procedure if exists guardarArchivo;
-delimiter $$
-create procedure guardarArchivo(in arch blob)
-	begin
-		insert into ARCHIVO(ARCHIVO.titulo, ARCHIVO.informacion) values (titulo, info);
-    end$$
-delimiter ;
-
-drop procedure if exists editarArchivo;
-delimiter $$
-create procedure editarArchivo(in id int,in archivo blob)
-	begin
-		update ARCHIVO set ARCHIVO.archivo=archivo where ARCHIVO.id=id;
-    end$$
-delimiter ;
-
-drop procedure if exists eliminarArchivo;
-delimiter $$
-create procedure eliminarArchivo(in id int)
-	begin
-		delete from ARCHIVO
-        where ARCHIVO.id = id;
-    end$$
-delimiter ;
 
 drop procedure if exists r_img;
 delimiter $$
@@ -278,7 +250,6 @@ grant all privileges on AnunciosITCM.*
 to 'admin1'@'localhost'
 identified by '1234';
 
-select * from ANUNCIO;
 
 #Validación de contraseñas#############################################################################################
 drop procedure if exists CambContraseña;

@@ -6,7 +6,7 @@
 		else{
 			$password = trim($_POST['password']);
         }
-        /////////ESTO NO ESTA ACOMODADO////////////////////////
+        
         $query = "call buscarUsuario('$password')";
         $resultado = mysqli_query($conexion, $query);
 

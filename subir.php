@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (!empty($_FILES['archivo'])){
 			if (is_uploaded_file($_FILES['archivo']['tmp_name'])){
 				// Datos del fichero
-				$ruta = $_FILES['archivo']['tmp_name'];
+				$ruta = $_FILES['archivo']['tmp_name']; //ruta del archivo
 				$name = $_FILES['archivo']['name'];	// nombre del archivo
 				$tamanio = $_FILES['archivo']['size']; //tamaño del archivo
 				$nruta = 'files/'.$name;	//nueva direccion
@@ -43,16 +43,21 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     if (empty($error)){
 
 			// Preparar consulta
-			$query = "call i_archivo ('$archivo','$folio','$curso')";
+			$query = "call guardarArchivo ('$archivo','$titulo')";
 
 			// Ejecutar consulta
 			$resultado = mysqli_query($conexion, $query);
 
-			// Si el resultado tuvo éxito entonces recargar página
+			// Si el resultado tuvo éxito
 			if ($resultado){
-				move_uploaded_file($ruta, $archivo);	// mover a nueva dirección
-				echo '<script>alert("¡Gracias! Archivo enviado")</script>';				
-				echo "<script>location.href='archivo.php'</script>";
+				if(move_uploaded_file($ruta, $archivo)){// mover a nueva dirección
+                	echo '<script>alert("¡Gracias! Archivo enviado")</script>';
+					echo "<script>location.href='archivo.php'</script>";
+                }	
+				else{
+                    $errores [] = "El archivo no pudo ser guardado correctamente";
+					unlink($rutaC);
+                }
 			}
 			else{
 				echo '<h2 class="error">¡Error del sistema!</h2>';
@@ -62,29 +67,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				echo '<p>'.mysqli_error($conexion).'<br>Query: '.$query.'</p>';
 			}
 		}
-	//Otra opcion con mas validaciones, pero falta la query de insertar
-     if (empty($errores)) {
-    	if(move_uploaded_file($ruta, $nruta)){
-    		if (move_uploaded_file($rutaTemporalR, $rutaR)) {
-    			$query = "CALL inscribirArchivo('$folio','$rutaC','$rutaR')";
-				$resultado = mysqli_query($conexion,$query);
-				if ($resultado) {
-					$mensaje = "";
-				}
-				else{
-					$errores[] = mysqli_error($conexion);
-				}
-    		}
-			else{
-				$errores [] = "Su recibo de pago no pudo ser almacenado correctamente";
-				unlink($rutaC);
-			}
-		}
-		else{
-			$errores[]="Su cedula de registro no pudo ser almacenada correctamente";
-		}
-	}
-
 }
 
 ?>
@@ -96,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 					<input type="file" name="archivo" class="inputFile centrado" required="required">
 				</div>
 				<div class="centrado">
-					<label><em>Solo archivos en formato pdf. Máximo: 4MB</em></label>
+                    <label><strong>Solo archivos en formato jpg o png. Máximo: 2MB</strong></label>
 				</div>
 				<div class="centrado">
 					<span class="error">

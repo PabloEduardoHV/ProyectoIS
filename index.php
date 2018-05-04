@@ -1,5 +1,5 @@
 <?php
-	
+	$query = "";
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,8 +20,7 @@
 		</aside>
 	</div>
 	<div class="container fondo">
-		<p>Aqui van los anuncios</p>
-		<h2>No hay anuncios en este momento</h2>
+		<?php ?>
 	</div>
 
 	
