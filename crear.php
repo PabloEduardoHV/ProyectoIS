@@ -1,9 +1,9 @@
 <?php
 // Verificar si se inició sesión
-/*session_start();
-if($_SESSION['user'] != 'coordinador'){
+session_start();
+if($_SESSION['tipo'] != 'admin1'){
 	header("Location:index.php");
-}*/
+}
 
 $page_title = "Crear anuncio"; 	// Nombre de la pestaña
 include 'includes/menu.php'; // incluir en diseño del menú a la página
