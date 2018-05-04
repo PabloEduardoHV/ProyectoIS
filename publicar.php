@@ -134,7 +134,13 @@ if($_SESSION['user'] != 'coordinador'){
 	// Cerrar la conexión a la base de datos
 	mysqli_close($conexion);
 ?>
-	</div>
-	</div>
+		  </div>
+
+	      <div class="sidebar2">
+	      	<a href="login.php">
+				<img src="comun/imagenes/logout.png" width="80%">
+			</a>
+	      </div>
+  		</div>
 </body>
 </html>
