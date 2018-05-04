@@ -1,5 +1,8 @@
 <?php 
-
+	session_start();
+	if($_SESSION['tipo'] != 'admin1'){
+		header("Location:index.php");
+	}
 $page_title = "Subir anuncio";
 include 'includes/menu.php'; 
 if ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -27,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				$array = explode('.', $name); //split con .
 				$ext = end($array);	// Obtenemos la extensión el archivo
 				$jpg = 'jpg';
-                $png = 'png';
+                		$png = 'png';
 
 				if ($ext == $jpg || $ext == $png){
 					$archivo = $nruta;
@@ -106,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				  </div>
 
 	      <div class="sidebar2">
-	      	<a href="login.php">
+	      		<a href="logout.php">
 				<img src="comun/imagenes/logout.png" width="80%">
 			</a>
 	      </div>
