@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				<div class="centrado">
 					<input type="file" name="archivo" class="inputFile centrado" required="required">
 				</div>
-				<div class="centrado">
+				<div class="boton_centrado">
                     <label><strong>Solo archivos en formato jpg o png. Máximo: 2MB</strong></label>
 				</div>
 				<div class="centrado">
@@ -91,12 +91,19 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 						?>
 					</span>
 				</div>
-			<div class=centrado>
+			<div class=boton_centrado>
 				<button class="boton">Guardar</button>
 				<button class="boton" type="reset">Limpiar</button>
 			</div>
 			</fieldset>
 		</form>
-	</div>
+				  </div>
+
+	      <div class="sidebar2">
+	      	<a href="login.php">
+				<img src="comun/imagenes/logout.png" width="80%">
+			</a>
+	      </div>
+  		</div>
 </body>
 </html>
