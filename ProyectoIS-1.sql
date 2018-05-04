@@ -304,3 +304,19 @@ delimiter $$
 		 select * from CONTRASEÑA where CONTRASEÑA.usuario='Admin2' and CONTRASEÑA.contraseña='Admin2';
     end$$
 delimiter ;
+
+-- #USUARIOS & CONTRASEÑAS#########################################################################################--
+
+drop procedure if exists IdentificarUsr;
+-- Busca a un usr por su contraseña, y de no encontrarlo devuelve un mensaje de error
+delimiter $$
+create procedure IdentificarUsr(in contra varchar(25))
+	begin
+    IF EXISTS (Select CONTRASEÑA.usuario from CONTRASEÑA where CONTRASEÑA.contraseña = contra) THEN
+		Select CONTRASEÑA.usuario from CONTRASEÑA
+        where CONTRASEÑA.contraseña = contra;
+    ELSE
+		Select 'Contraseña incorrecta, por favor intente de nuevo.';
+    END IF;
+    end $$
+delimiter ;
