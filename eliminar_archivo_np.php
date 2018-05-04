@@ -72,7 +72,7 @@
 							<input type="radio" id="n" name="sure" value="No" checked="checked" />
 						</p>
 					</div>
-					<center><button>Enviar</button></center>
+					<center><button class=boton>Enviar</button></center>
 					<input type="hidden" name="id" value="' .$archivo. '" />
 				  </form>'; // el campo id y su valor se envían ocultos (type="hidden")
 		} else
