@@ -83,5 +83,10 @@
 ?>
 	</div>
 	</div>
+	<div class="sidebar2">
+		<a href="logout.php">
+			<img src="comun/imagenes/logout.png" width="80%">
+		</a>
+	</div>
 </body>
 </html>
