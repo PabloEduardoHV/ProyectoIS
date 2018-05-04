@@ -26,13 +26,14 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				$nruta = 'files/'.$name;	//nueva direccion
 				$array = explode('.', $name); //split con .
 				$ext = end($array);	// Obtenemos la extensión el archivo
-				$pdf = 'pdf';
+				$jpg = 'jpg';
+                $png = 'png';
 
-				if ($ext == $pdf){
+				if ($ext == $jpg || $ext == $png){
 					$archivo = $nruta;
 				}
 				else{
-					$error[] = 'Asegúrese de subir un archivo tipo PDF';
+					$error[] = 'Asegúrese de subir un archivo tipo JPG o PNG';
 				}
 			}
 			else{
