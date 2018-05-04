@@ -1,9 +1,8 @@
 <?php
-	/*session_start();
-	if ($_SESSION['user'] != 'Administrador') {
+	session_start();
+	if($_SESSION['tipo'] != 'admin1'){
 		header("Location:index.php");
-	}*/
-
+	}
 	$page_title = 'Eliminar anuncio no publicado';
 	include 'includes/menu.php'; // incluir en diseño del menú a la página
 
