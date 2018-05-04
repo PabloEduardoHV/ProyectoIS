@@ -31,51 +31,19 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		$info = trim($_POST['info']);
 	}
 
-	// Verificar que se proporcione la fecha de inicio de anuncio
-	if (empty($_POST['f_inicio']))
-		$error[] = 'Olvidó introducir la fecha de inicio';
-	else{
-		$f_inicio = trim($_POST['f_inicio']);	
-		//$f_inicio = mysqli_real_escape_string($conexion, $f_inicio);
-	}
-
-	// Verificar que se proporcione la fecha fin de anuncio
-	if (empty($_POST['f_fin']))
-		$error[] = 'Olvidó introducir la fecha fin';
-	else{
-		$f_fin = trim($_POST['f_fin']);	
-		//$f_fin = mysqli_real_escape_string($conexion, $f_fin);
-	}
-
-	// Verificar que se proporcione la hora inicial del anuncio
-	if (empty($_POST['h_inicio']))
-		$error[] = 'Olvidó introducir la hora inicial';
-	else{
-		$h_inicio = trim($_POST['h_inicio']);
-		//$h_inicio = mysqli_real_escape_string($conexion, $h_inicio);
-	}
-
-	// Verificar que se proporcione la fecha fin de anuncio
-	if (empty($_POST['h_fin']))
-		$error[] = 'Olvidó introducir la hora final';
-	else{
-		$h_fin = trim($_POST['h_fin']);	
-		//$h_fin = mysqli_real_escape_string($conexion, $h_fin);
-	}
-
+	
 	// Verificar que se proporcione una plantilla
 	if (empty($_POST['plan']))
 		$error[] = 'Olvidó elegir el tipo de plantilla';
 	else{
 		$plan = trim($_POST['plan']);
-		$cedula = 'cedula_'.$plan.'.php';
 		//$plan = mysqli_real_escape_string($conexion, $plan);
 	}
 
 	// Estructurar la consulta y ejecutarla
 	if(empty($error)){
 		// procedimiento almacenado para guardar info
-		$query = "call guardarAnuncio('$titulo', '$info', '$f_inicio','$f_fin','$h_inicio','$h_fin',$plan)";
+		$query = "call guardarAnuncio('$titulo', '$info',$plan)";
 		
 
 		// Ejecutar el procedimiento almacenado
@@ -84,15 +52,16 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		// Si el resultado tuvo éxito, entonces recargar página
 		if ($resultado){
 			mysqli_next_result($conexion);
-			mysqli_free_result($resultado);
+			@mysqli_free_result($resultado);
 			$query1 = "select LAST_INSERT_ID() as id from anuncio";
 			$res1 = mysqli_query($conexion, $query1);
 			if($res1){
-			//$id = mysqli_insert_id($conexion);
 				echo '<script>alert("¡Gracias! anuncio guardado con éxito")</script>';
 				while ($row = mysqli_fetch_assoc($res1)) {
-					$id = $row['id'];				
-					echo '<script>location.href="cedula.php?id='.$id.'"</script>';
+					$id = $row['id'];
+					echo "<script>window.open('imagen.php?id=".$id."&plan=".$plan."','_blank');</script>";
+					echo '<script>location.href="crear.php"</script>';
+					break;
 				}
 				mysqli_free_result($res1);
 			}
@@ -133,19 +102,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 							}
 						?>
 					</span>
-				</div><br>
-				<center><div>
-					<label for="f_inicio" class="txt">Fecha inicio:</label>
-					<input type="date" name="f_inicio">
-					<label for="f_fin" class="txt">Fecha fin:</label>
-					<input type="date" name="f_fin">
-				</div></center><br>
+				</div>
+				<br>
 				<div>
 					<center>
-						<label for="h_inicio" class="txt">Hora inicio:</label>
-						<input type="time" name="h_inicio">
-						<label for="h_fin" class="txt">Hora fin:</label>
-						<input type="time" name="h_fin">
 						<label onclick="flotante(1)" class="txt">Plantilla*:</label>
 						<select id="plantilla" name="plan">
 							<option value="">-</option>
@@ -157,9 +117,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 						<div id="contenedor" style="display: none;">
 							<div id="flotante">
 								<h1>Opciones:</h1>
-								<img src="comun/imagenes/1.jpg" title="1" width="30%" height="50%">
-								<img src="comun/imagenes/2.jpg" title="2" width="30%" height="50%">
-								<img src="comun/imagenes/3.jpg" title="3" width="30%" height="50%"><br>
+								<img src="comun/imagenes/plantilla_1.jpg" title="1" width="30%" height="50%">
+								<img src="comun/imagenes/plantilla_2.jpg" title="2" width="30%" height="50%">
+								<img src="comun/imagenes/plantilla_3.jpg" title="3" width="30%" height="50%"><br>
 								<h3><a onclick="flotante(2)">Cerrar ventana</a></h3>
 							</div>
 							<div id="fondo"></div>
