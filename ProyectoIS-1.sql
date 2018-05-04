@@ -37,15 +37,12 @@ drop table ARCHIVO;
 -- #Guardar, Editar, Eliminar#
 
 drop procedure if exists guardarAnuncio;
--- Guarda anuncio, pidiendo todo menos id, que es autoincrement y publicado, que toma false por defecto
-drop procedure if exists guardarAnuncio;
 delimiter $$
-create procedure guardarAnuncio(in titulo varchar(50), in info longtext,in plan int(1))
+create procedure guardarAnuncio(in titulo varchar(50), in info longtext,in plan enum('1','2','3'))
 	begin
-		insert into ANUNCIO(titulo, informacion, fecha_subida,fecha_vigencia,hora_inicio,hora_fin,plantilla) values (titulo, info,plan);
+		insert into ANUNCIO(titulo, informacion,plantilla, publicado) values (titulo,info,plan,0);
     end$$
 delimiter ;
-
 
 drop procedure if exists editarAnuncio;
 -- Busca un anuncio por su id y cambia todo del mismo, incluyendo si está publicado o no
@@ -268,11 +265,11 @@ create procedure eliminarArchivo(in id int)
     end$$
 delimiter ;
 
-drop procedure if exists r_pdf;
+drop procedure if exists r_img;
 delimiter $$
-create procedure r_pdf(in l_id int)
+create procedure r_img(in l_id int)
 	begin
-		update anuncio set anuncio.ruta = (concat('anuncio_',l_id)) where anuncio.id = l_id;
+		update anuncio set anuncio.ruta = (concat('files/anuncio_',l_id)) where anuncio.id = l_id;
 		select titulo, informacion from ANUNCIO where l_id = id;
     end$$
 delimiter ;
