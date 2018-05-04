@@ -1,5 +1,10 @@
 <?php
+
+$page_title = "Subir anuncio";
+
 	if ($_SERVER['REQUEST_METHOD']=='POST') {
+		// Conectar a la base de datos
+		require ("../mysqli_connect_is.php");
 		if (isset($_POST['password'])&&empty($_POST['password'])) {
 			$error="Olvidó introducir la contraseña.";
 		}
@@ -7,16 +12,15 @@
 			$password = trim($_POST['password']);
         }
         
-        $query = "call buscarUsuario('$password')";
+        $query = "call IdentificarUsr('$password')";
         $resultado = mysqli_query($conexion, $query);
 
         if ($resultado) {
             $num = mysqli_num_rows($resultado);
             if($num>0){
-                $cuenta = array();
 
-                while($fila = mysqli_fetch_assoc($resultado)){
-                        $cuenta['tipo']=$fila['tipo'];
+                while($fila = mysqli_fetch_array($resultado)){
+                        $cuenta=$fila[0];
                 }
 				//Liberar el resultado
                 mysqli_free_result($resultado);
@@ -24,17 +28,20 @@
                 session_start();   
                 $_SESSION['contraseña'] = $password;  
 
-                if($cuenta['tipo']=='admin'){
-                        $_SESSION['tipo'] = 'admin';
+                if($cuenta=='admin1'){
+                        $_SESSION['tipo'] = 'admin1';
                         header ("Location: crear.php");
                 }
-                elseif($cuenta['tipo']=='admin2'){
+                elseif($cuenta=='admin2'){
                         $_SESSION['tipo'] = 'admin2';
                         header("Location: crear.php");
                 }
+                else{
+                	$error = "Contraseña incorrecta, por favor intente de nuevo.";
+                }
             }
             else{
-                    $error = "Usuario o contraseña equivocada";
+                $error = "Usuario o contraseña equivocada";
             }
         }
         else{
