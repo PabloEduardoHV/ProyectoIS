@@ -56,32 +56,12 @@ in f_f date, in h_i time,in h_f time,in plan enum ('1', '2', '3'), in publi bool
     end$$
 delimiter ;
 
-drop procedure if exists eliminarAnuncio;
--- Busca un anuncio por su id, y lo elimina
-delimiter $$
-create procedure eliminarAnuncio(in id int)
-	begin
-		delete from ANUNCIO
-        where ANUNCIO.id = id;
-    end$$
-delimiter ;
-
 drop procedure if exists CambiarPlantillaAnuncio;
 -- Busca un anuncio por su id, y cambia su plantilla
 delimiter $$
 create procedure CambiarPlantillaAnuncio(in id int, in plan enum ('1', '2', '3'))
 	begin
 		update ANUNCIO set ANUNCIO.plantilla=plan
-        where ANUNCIO.id = id;
-    end$$
-delimiter ;
-
-drop procedure if exists PublicarAnuncio;
--- Busca un anuncio por su id, y lo marca como publicado
-delimiter $$
-create procedure PublicarAnuncio(in id int)
-	begin
-		update ANUNCIO set ANUNCIO.publicado=1
         where ANUNCIO.id = id;
     end$$
 delimiter ;
@@ -117,27 +97,6 @@ create procedure getAnuncio(in id int)
     end$$
 delimiter ;
 
-drop procedure if exists getAnunciosPublicados;
--- Muestra todo de los anuncios publicados
-delimiter $$
-create procedure getAnunciosPublicados()
-	begin
-		Select * from ANUNCIO 
-        where ANUNCIO.publicado = 1;
-    end$$
-delimiter ;
-
-drop procedure if exists getAnunciosNoPublicados;
--- Muestra todo de los anuncios NO publicados
-delimiter $$
-create procedure getAnunciosNoPublicados()
-	begin
-		Select * from ANUNCIO 
-        where ANUNCIO.publicado = 0;
-    end$$
-delimiter ;
-
-
 
 -- #ARCHIVOS####################################################################################################### --
     
@@ -161,16 +120,6 @@ create procedure editarArchivo(in id int,in arch varchar(50), in f_i date,in f_f
 		update ARCHIVO set ARCHIVO.archivo=arch, ARCHIVO.fecha_subida=f_i, ARCHIVO.fecha_vigencia= f_f, 
         ARCHIVO.hora_inicio=h_i, ARCHIVO.hora_fin=h_f, ARCHIVO.publicado=publi
         where ARCHIVO.id=id;
-    end$$
-delimiter ;
-
-drop procedure if exists eliminarArchivo;
--- Busca un archivo por su id, y lo elimina
-delimiter $$
-create procedure eliminarArchivo(in id int)
-	begin
-		delete from ARCHIVO
-        where ARCHIVO.id = id;
     end$$
 delimiter ;
 
@@ -214,38 +163,143 @@ create procedure getArchivo(in id int)
         where ARCHIVO.id = id;
     end$$
 delimiter ;
-
-drop procedure if exists getArchivosPublicados;
--- Muestra todo de los archivos publicados
-delimiter $$
-create procedure getArchivosPublicados()
-	begin
-		Select * from ARCHIVO 
-        where ARCHIVO.publicado = 1;
-    end$$
-delimiter ;
-
-drop procedure if exists getArchivosNoPublicados;
--- Muestra todo de los archivos NO publicados
-delimiter $$
-create procedure getArchivosNoPublicados()
-	begin
-		Select * from ARCHIVO 
-        where ARCHIVO.publicado = 0;
-    end$$
-delimiter ;
-
     
+#E N O C XD XD XD XD#################################################################################################
+								  
+drop procedure if exists guardarAnuncio;
+delimiter $$
+create procedure guardarAnuncio(in titulo varchar(50), in info longtext,in plan enum('1','2','3'))
+	begin
+		insert into ANUNCIO(titulo, informacion,plantilla,publicado) values (titulo,info,plan,0);
+    end$$
+delimiter ;
 
 drop procedure if exists r_img;
 delimiter $$
 create procedure r_img(in l_id int)
 	begin
-		update anuncio set anuncio.ruta = (concat('files/anuncio_',l_id)) where anuncio.id = l_id;
+		update anuncio set anuncio.ruta = (concat('files/anuncio_',l_id,'.jpg')) where anuncio.id = l_id;
 		select titulo, informacion from ANUNCIO where l_id = id;
     end$$
 delimiter ;
 
+drop procedure if exists getAnunciosPublicados;
+-- Muestra todo de los anuncios publicados
+delimiter $$
+create procedure getAnunciosPublicados()
+	begin
+		select anuncio.* from anuncio
+        where ANUNCIO.publicado = 1;
+    end$$
+delimiter ;
+
+drop procedure if exists getArchivosPublicados;
+-- Muestra todo de los anuncios publicados
+delimiter $$
+create procedure getArchivosPublicados()
+	begin
+		select archivo.* from archivo
+        where archivo.publicado = 1;
+    end$$
+delimiter ;
+
+drop procedure if exists getAnunciosNoPublicados;
+-- Muestra todo de los anuncios NO publicados
+delimiter $$
+create procedure getAnunciosNoPublicados()
+	begin
+		Select * from ANUNCIO 
+        where ANUNCIO.publicado = 0;
+    end$$
+delimiter ;
+
+drop procedure if exists getArchivosNoPublicados;
+-- Muestra todo de los anuncios NO publicados
+delimiter $$
+create procedure getArchivosNoPublicados()
+	begin
+		Select * from archivo 
+        where archivo.publicado = 0;
+    end$$
+delimiter ;
+
+drop procedure if exists PublicarAnuncio;
+-- Busca un anuncio por su id, y lo marca como publicado
+delimiter $$
+create procedure PublicarAnuncio(in id int)
+	begin
+		update ANUNCIO set ANUNCIO.publicado=1
+        where ANUNCIO.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists PublicarArchivo;
+-- Busca un anuncio por su id, y lo marca como publicado
+delimiter $$
+create procedure PublicarArchivo(in id int)
+	begin
+		update archivo set archivo.publicado=1
+        where archivo.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists eliminarAnuncio;
+-- Busca un anuncio por su id, y lo elimina
+delimiter $$
+create procedure eliminarAnuncio(in id int)
+	begin
+		delete from ANUNCIO
+        where ANUNCIO.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists eliminarArchivo;
+-- Busca un anuncio por su id, y lo elimina
+delimiter $$
+create procedure eliminarArchivo(in id int)
+	begin
+		delete from archivo
+        where archivo.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists getP;
+delimiter $$
+create procedure getP(in id int)
+	begin
+		select anuncio.* from anuncio
+        where ANUNCIO.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists getPA;
+delimiter $$
+create procedure getPA(in id int)
+	begin
+		select archivo.* from archivo
+        where archivo.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists getNP;
+delimiter $$
+create procedure getNP(in id int)
+	begin
+		select anuncio.* from anuncio
+        where ANUNCIO.id = id;
+    end$$
+delimiter ;
+
+drop procedure if exists getNPA;
+delimiter $$
+create procedure getNPA(in id int)
+	begin
+		select archivo.* from archivo
+        where archivo.id = id;
+    end$$
+delimiter ;
+
+								    
 grant all privileges on AnunciosITCM.*
 to 'admin1'@'localhost'
 identified by '1234';
