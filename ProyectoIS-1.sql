@@ -21,9 +21,9 @@ create table ANUNCIO(
 
 drop table if exists ARCHIVO;
 create table ARCHIVO(
-	id int,
-	archivo varchar(50),
+	id int auto_increment,
     publicado bool not null default 0,
+	archivo varchar(50),
     constraint pk_ARCHIVO primary key ARCHIVO(id)
 );
 
