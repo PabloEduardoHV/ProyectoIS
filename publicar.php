@@ -67,7 +67,7 @@ if($_SESSION['user'] != 'coordinador'){
 						<td>'.$anp['titulo'].'</td>
 						<td>
 							<i class="buttona edit">Editar</i>
-							<i class="buttona delete"><a href="eliminar_anuncio.php?id='.$anp['id'].'">Eliminar</a></i>
+							<i class="buttona delete"><a href="eliminar_anuncio_np.php?id='.$anp['id'].'">Eliminar</a></i>
 							<i class="buttona view"><a href="'.$anp['ruta'].'.jpg" target="_blank">Ver</a></i>
 							<i class="buttona pub"><a href="publicar.php?id='.$anp['id'].'">Publicar</a></i>
 						</td>
