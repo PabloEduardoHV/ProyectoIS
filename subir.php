@@ -5,7 +5,7 @@ include 'includes/menu.php';
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 
 	// Conectar a la base de datos
-	require ("mysqli_connect_is.php");
+	require ("../mysqli_connect_is.php");
 
 	// Arreglo para almacenar mensajes de error
 	$error = array();
@@ -35,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				else{
 					$error[] = 'Asegúrese de subir un archivo tipo JPG o PNG';
 				}
+
+				if ($tamaño>2097152) { //2MB=1024*1024*2
+					$error[] = "La imagen debe ser menor de 2 MB";
+				}
+
 			}
 			else{
 				$error[] = 'Olvidó introducir el Archivo';
@@ -53,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 			if ($resultado){
 				if(move_uploaded_file($ruta, $archivo)){// mover a nueva dirección
                 	echo '<script>alert("¡Gracias! Archivo enviado")</script>';
+                	echo "<script>location.href='subir.php'</script>";
                 }	
 				else{
                     $errores [] = "El archivo no pudo ser guardado correctamente";
