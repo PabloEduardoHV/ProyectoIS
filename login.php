@@ -48,7 +48,6 @@
 <head>
 	<title>Iniciar sesión</title>
 	<link rel="stylesheet" type="text/css" href="comun/css/estilo.css">
-    <meta charset="utf-8">
 </head>
 <body class="centrado">
 	<aside class="aside">
@@ -61,8 +60,8 @@
 		<div class="container">
 			<form id="form" method="post"	action="login.php">
 				<fieldset>
-                    <h1 class="titulo">INICIAR SESIÓN</h1>
-					<label for="password" class="label">Contraseña:</label><br>
+					<h1 class="titulo">Iniciar sesión</h1>
+					<label for="password" class="label">Contraseña:</label>  
 					<input type="password" class="pw" id="password" name="password">
 					<div>
 						<span class="error">
@@ -71,12 +70,11 @@
 							?>
 						</span>
 					</div>
-				</fieldset>
 				<button class="boton">Enviar</button>
 				<button class="boton" formaction="index.php">Regresar</button>
+				</fieldset>
 			</form>
 
 		</div>
 	</div>
 </body>
-</html>
