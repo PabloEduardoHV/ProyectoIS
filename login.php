@@ -43,25 +43,29 @@
 
 	}
 ?>
+
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Iniciar sesión</title>
-	<link rel="stylesheet" type="text/css" href="comun/css/estilo.css">
-</head>
-<body class="centrado">
-	<aside class="aside">
-	</aside>
-	<div class="float">
-		<aside class="aside2">
-		</aside>
-	</div>
-	<div class="fondo">
+	<head>
+		<meta charset="utf-8">
+		<title>Iniciar sesión</title>
+		<link href="comun/css/estilo.css" rel="stylesheet" type="text/css">
+		<link href="comun/css/menu.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
 		<div class="container">
-			<form id="form" method="post"	action="login.php">
+			
+	      <div class="sidebar1">
+
+	      </div>
+
+		  <div class="content">
+		  		<br>
+		  		<form id="form" method="post"	action="login.php">
 				<fieldset>
 					<h1 class="titulo">Iniciar sesión</h1>
-					<label for="password" class="label">Contraseña:</label>  
+					<label for="password" class="txt">Contraseña:</label>  
 					<input type="password" class="pw" id="password" name="password">
 					<div>
 						<span class="error">
@@ -74,7 +78,13 @@
 				<button class="boton" formaction="index.php">Regresar</button>
 				</fieldset>
 			</form>
+		  </div>
 
-		</div>
-	</div>
-</body>
+	      <div class="sidebar2">
+	      	<a href="login.php">
+				<img src="comun/imagenes/login.png" width="80%">
+			</a>
+	      </div>
+  		</div>
+	</body>
+</html>
