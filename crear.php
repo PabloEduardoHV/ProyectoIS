@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		</div>
 
 	      <div class="sidebar2">
-	      	<a href="login.php">
+	      	<a href="logout.php">
 				<img src="comun/imagenes/logout.png" width="80%">
 			</a>
 	      </div>
