@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
 }
 ?>
-<form id="form" method="post" action="configuracion.php">
+	<form id="form" method="post" action="configuracion.php">
 			<fieldset class="centrado">
 				<label for="titulo" class="label titulo centrado">CAMBIAR CONTRASEÑA</label>
 				<br><br>
@@ -87,5 +87,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 			</fieldset>
 		</form>
 	</div>
+	<div class="sidebar2">
+      		<a href="logout.php">
+			<img src="comun/imagenes/logout.png" width="80%">
+		</a>
+        </div>
 </body>
 </html>
