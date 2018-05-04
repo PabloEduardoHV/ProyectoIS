@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 				// Datos del fichero
 				$ruta = $_FILES['archivo']['tmp_name']; //ruta del archivo
 				$name = $_FILES['archivo']['name'];	// nombre del archivo
-				$tamanio = $_FILES['archivo']['size']; //tamaño del archivo
+				$tamaño = $_FILES['archivo']['size']; //tamaño del archivo
 				$nruta = 'files/'.$name;	//nueva direccion
 				$array = explode('.', $name); //split con .
 				$ext = end($array);	// Obtenemos la extensión el archivo
@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 			if ($resultado){
 				if(move_uploaded_file($ruta, $archivo)){// mover a nueva dirección
                 	echo '<script>alert("¡Gracias! Archivo enviado")</script>';
-					echo "<script>location.href='archivo.php'</script>";
                 }	
 				else{
                     $errores [] = "El archivo no pudo ser guardado correctamente";
