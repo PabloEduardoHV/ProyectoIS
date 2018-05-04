@@ -1,6 +1,9 @@
 <?php
-
-$page_title = "Subir anuncio";
+	session_start();
+	if(isset($_SESSION['tipo'])&&$_SESSION['tipo'] == 'admin1'){
+		header("Location:crear.php");
+	}
+	$page_title = "Subir anuncio";
 
 	if ($_SERVER['REQUEST_METHOD']=='POST') {
 		// Conectar a la base de datos
@@ -88,9 +91,7 @@ $page_title = "Subir anuncio";
 		  </div>
 
 	      <div class="sidebar2">
-	      	<a href="login.php">
-				<img src="comun/imagenes/login.png" width="80%">
-			</a>
+	      	
 	      </div>
   		</div>
 	</body>
