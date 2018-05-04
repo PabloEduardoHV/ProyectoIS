@@ -13,10 +13,6 @@ create table ANUNCIO(
 	id int auto_increment,
 	titulo varchar(50),
 	informacion longtext,
-	fecha_subida date,
-	fecha_vigencia date,
-    hora_inicio time,
-    hora_fin time,
     plantilla enum ('1', '2', '3'),
     publicado bool not null default 0,
     ruta varchar(50),
@@ -27,13 +23,11 @@ drop table if exists ARCHIVO;
 create table ARCHIVO(
 	id int,
 	archivo varchar(50),
-	fecha_subida date,
-	fecha_vigencia date,
-    hora_inicio time,
-    hora_fin time,
     publicado bool not null default 0,
     constraint pk_ARCHIVO primary key ARCHIVO(id)
 );
+
+drop table ARCHIVO;
 
 -- Mayo/02
 -- Notas: Boolean es un tinyint(1), es decir toma solo 0-1, para falso-verdadero, respectivamente
@@ -44,14 +38,14 @@ create table ARCHIVO(
 
 drop procedure if exists guardarAnuncio;
 -- Guarda anuncio, pidiendo todo menos id, que es autoincrement y publicado, que toma false por defecto
+drop procedure if exists guardarAnuncio;
 delimiter $$
-create procedure guardarAnuncio(in titulo varchar(50), in info longtext, in f_i date,in f_f date, in h_i time,
-in h_f time,in plan enum ('1', '2', '3'))
+create procedure guardarAnuncio(in titulo varchar(50), in info longtext,in plan int(1))
 	begin
-		insert into ANUNCIO(titulo, informacion, fecha_subida,fecha_vigencia,hora_inicio,hora_fin,plantilla) 
-        values (titulo, info, f_i,f_f,h_i,h_f,plan);
+		insert into ANUNCIO(titulo, informacion, fecha_subida,fecha_vigencia,hora_inicio,hora_fin,plantilla) values (titulo, info,plan);
     end$$
 delimiter ;
+
 
 drop procedure if exists editarAnuncio;
 -- Busca un anuncio por su id y cambia todo del mismo, incluyendo si está publicado o no
@@ -278,6 +272,7 @@ drop procedure if exists r_pdf;
 delimiter $$
 create procedure r_pdf(in l_id int)
 	begin
+		update anuncio set anuncio.ruta = (concat('anuncio_',l_id)) where anuncio.id = l_id;
 		select titulo, informacion from ANUNCIO where l_id = id;
     end$$
 delimiter ;
