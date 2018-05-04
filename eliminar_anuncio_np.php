@@ -81,7 +81,11 @@
 	} // Fin de mostrar el formulario. 
 	mysqli_close($conexion);
 ?>
-	</div>
-	</div>
+	      <div class="sidebar2">
+	      	<a href="login.php">
+				<img src="comun/imagenes/logout.png" width="80%">
+			</a>
+	      </div>
+  		</div>
 </body>
 </html>
