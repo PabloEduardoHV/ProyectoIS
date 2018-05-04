@@ -126,12 +126,17 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 						</div>
 					</center>
 				</div><br>
-				<center>
 					<button class="boton">Guardar</button>
 					<button class="boton" type="reset">Limpiar</button>
-				</center>
 			</fieldset>
 		</form>
-	</div>
+		</div>
+
+	      <div class="sidebar2">
+	      	<a href="login.php">
+				<img src="comun/imagenes/logout.png" width="80%">
+			</a>
+	      </div>
+  		</div>
 </body>
 </html>
