@@ -1,9 +1,9 @@
 <?php
 // Verificar si se inició sesión
-/*session_start();
-if($_SESSION['user'] != 'coordinador'){
+session_start();
+if($_SESSION['tipo'] != 'admin1'){
 	header("Location:index.php");
-}*/
+}
 
 	$page_title = "Anuncios"; 	// Nombre de la pestaña
 	include 'includes/menu.php'; // incluir en diseño del menú a la página
@@ -90,9 +90,8 @@ if($_SESSION['user'] != 'coordinador'){
 						<td>'.$anp['id'].'</td>
 						<td>'.$anp['titulo'].'</td>
 						<td>
-							<i class="buttona edit">Editar</i>
 							<i class="buttona delete"><a href="eliminar_anuncio_np.php?id='.$anp['id'].'">Eliminar</a></i>
-							<i class="buttona view"><a href="'.$anp['ruta'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona view"><a href="'.$anp['ruta'].'" target="_blank">Ver</a></i>
 							<i class="buttona pub"><a href="publicar.php?id='.$anp['id'].'&type='.$an.'">Publicar</a></i>
 						</td>
 				  	</tr>
@@ -137,7 +136,7 @@ if($_SESSION['user'] != 'coordinador'){
 						<td>'.$arnp['titulo'].'</td>
 						<td>
 							<i class="buttona delete"><a href="eliminar_archivo_np.php?id='.$arnp['id'].'">Eliminar</a></i>
-							<i class="buttona view"><a href="'.$arnp['archivo'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona view"><a href="'.$arnp['archivo'].'" target="_blank">Ver</a></i>
 							<i class="buttona pub"><a href="publicar.php?id='.$arnp['id'].'&type='.$ar.'">Publicar</a></i>
 						</td>
 				  	</tr>
@@ -184,7 +183,7 @@ if($_SESSION['user'] != 'coordinador'){
 						<td>'.$ap['id'].'</td>
 						<td>'.$ap['titulo'].'</td>
 						<td>
-							<i class="buttona view"><a href="'.$ap['ruta'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona view"><a href="'.$ap['ruta'].'" target="_blank">Ver</a></i>
 							<i class="buttona delete"><a href="eliminar_anuncio_p.php?id='.$ap['id'].'">Eliminar</a></i>
 						</td>
 				  	</tr>
@@ -231,7 +230,7 @@ if($_SESSION['user'] != 'coordinador'){
 						<td>'.$arp['id'].'</td>
 						<td>'.$arp['titulo'].'</td>
 						<td>
-							<i class="buttona view"><a href="'.$arp['archivo'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona view"><a href="'.$arp['archivo'].'" target="_blank">Ver</a></i>
 							<i class="buttona delete"><a href="eliminar_archivo_p.php?id='.$arp['id'].'">Eliminar</a></i>
 						</td>
 				  	</tr>
@@ -250,6 +249,11 @@ if($_SESSION['user'] != 'coordinador'){
 ?>
 	</div>
 	</div>
+	<div class="sidebar2">
+      		<a href="logout.php">
+			<img src="comun/imagenes/logout.png" width="80%">
+		</a>
+      </div>
 </body>
 </html>
 
