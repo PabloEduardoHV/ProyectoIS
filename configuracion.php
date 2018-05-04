@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 	}
 
 }
-
+?>
 <form id="form" method="post" action="configuracion.php">
 			<fieldset class="centrado">
 				<label for="titulo" class="label titulo centrado">CAMBIAR CONTRASEÑA</label>
