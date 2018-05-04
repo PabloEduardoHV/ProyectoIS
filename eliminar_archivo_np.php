@@ -1,8 +1,8 @@
 <?php
-	/*session_start();
-	if ($_SESSION['user'] != 'Administrador') {
+	session_start();
+	if($_SESSION['tipo'] != 'admin1'){
 		header("Location:index.php");
-	}*/
+	}
 
 	$page_title = 'Eliminar archivo no publicado';
 	include 'includes/menu.php'; // incluir en diseño del menú a la página
@@ -83,5 +83,10 @@
 ?>
 	</div>
 	</div>
+	<div class="sidebar2">
+      		<a href="logout.php">
+			<img src="comun/imagenes/logout.png" width="80%">
+		</a>
+    	</div>
 </body>
 </html>
