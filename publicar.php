@@ -5,13 +5,37 @@ if($_SESSION['user'] != 'coordinador'){
 	header("Location:index.php");
 }*/
 
-	$page_title = "Crear anuncio"; 	// Nombre de la pestaña
+	$page_title = "Anuncios"; 	// Nombre de la pestaña
 	include 'includes/menu.php'; // incluir en diseño del menú a la página
 
 	// Conectar a la base de datos
 	require ("../mysqli_connect_is.php");
 
-	echo "<h1>Anuncios guardados</h1>";
+	if ( (isset($_GET['id'])) && (is_numeric($_GET['id']))){ // desde paginas.php
+		$id = $_GET['id'];
+
+		// Preparar PA para publicar anuncio
+		$query1 = "call publicarAnuncio()";
+		$resultado1 = mysqli_query($conexion, $query1);
+
+		// Si el resultado tuvo éxito, entonces recargar página
+		if ($resultado1){
+			echo '<script>alert("¡Gracias! anuncio publicado con éxito")</script>';
+			echo '<script>location.href="publicar.php"</script>';
+			mysqli_next_result($conexion);
+			@mysqli_free_result($resultado1);
+		}
+		else{
+			echo '<h2 class="error">¡Error del sistema!</h2>';
+			echo '<p>Lo sentimos el servidor está en mantenimiento, intente más tarde</p>';
+
+			// Debuggin message:
+			echo '<p>'.mysqli_error($conexion).'<br>Query: '.$query1.'</p>';
+		}
+	}
+
+	echo "<div class='cont'>
+	<h1>Anuncios</h1>";
 
 	// Preparar consulta de los anuncios guardados con éxito
 	$query = "call getAnunciosNoPublicados()";
@@ -23,25 +47,32 @@ if($_SESSION['user'] != 'coordinador'){
 	// Mostrar los anuncios no publicados
 	if ($num > 0){
 
-		// Mostrar la cantidad de anuncios guardados
-		if ($num == 1)
-			echo "<p>Actualmente hay $num anuncio guardado</p><br>";
-		else
-			echo "<p>Actualmente hay $num anuncios guardados</p><br>";
-
 		//Tabla para mostrar los registros
-		echo '<table cellspacing="3" cellpadding="3" width="auto">
-				<tr><td align="center"><b>Título</b></td>
-					<td align="center"><b>Ver</b></td>
-					<td align="center"><b>Opciones</b></td>
-				</tr>';
+		echo '<table>
+				<thead>
+					<tr>
+						<th colspan="3">Guardados</th>
+					</tr>
+					<tr>
+						<th>id</th>
+						<th colspan="2">Título</th>
+					</tr>
+				</thead>';
 
 		// Recuperar y mostrar todos los registros
 		while ($anp = mysqli_fetch_assoc($resultado)){
-			echo '<tr><td align="center">'.$anp['titulo'].'</td>'.
-					 '<td align="center"><a href="'.$anp['ruta'].'.jpg">Abrir</a></td>'.
-					 '<td align="center"><a href="">Editar</a>, <a href="">Eliminar</a>,<a href="">Publicar</a></td>
-				  </tr>';
+			echo '<tbody>
+					<tr>
+						<td>'.$anp['id'].'</td>
+						<td>'.$anp['titulo'].'</td>
+						<td>
+							<i class="buttona edit">Editar</i>
+							<i class="buttona delete"><a href="eliminar_anuncio.php?id='.$anp['id'].'">Eliminar</a></i>
+							<i class="buttona view"><a href="'.$anp['ruta'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona pub"><a href="publicar.php?id='.$anp['id'].'">Publicar</a></i>
+						</td>
+				  	</tr>
+				  </tbody>';
 		}
 		echo "</table>";
 
@@ -52,9 +83,9 @@ if($_SESSION['user'] != 'coordinador'){
 	else // No hubo registros
 		echo '<p class="error">Actualmente no hay anuncios guardados</p>';
 
-	echo "<br><br><br>";
+	echo "<br>";
 
-	echo "<h1>Anuncios publicados</h1>";
+	echo "<h1>Anuncios</h1>";
 	/*
 	// Preparar consulta de los anuncios publicads con éxito
 	$query2 = "call getAnunciosPublicados()";
@@ -66,27 +97,33 @@ if($_SESSION['user'] != 'coordinador'){
 	// Mostrar los anuncios no publicados
 	if ($num2 > 0){
 
-		// Mostrar la cantidad de anuncios guardados
-		if ($num2 == 1)
-			echo "<p>Actualmente hay $num2 anuncio publicado</p><br>";
-		else
-			echo "<p>Actualmente hay $num anuncios publicados</p><br>";
-
 		//Tabla para mostrar los registros
-		echo '<table cellspacing="3" cellpadding="3" width="auto">
-				<tr><td align="center"><b>Título</b></td>
-					<td align="center"><b>Ver</b></td>
-					<td align="center"><b>Opciones</b></td>
-				</tr>';
+		echo '<table>
+				<thead>
+					<tr>
+						<th colspan="3">Publicados</th>
+					</tr>
+					<tr>
+						<th>id</th>
+						<th colspan="2">Título</th>
+					</tr>
+				</thead>';
 
 		// Recuperar y mostrar todos los registros
-		while ($ap = mysqli_fetch_assoc($resultado2)){
-			echo '<tr><td align="center">'.$ap['titulo'].'</td>'.
-					 '<td align="center">'.$ap['ruta'].'</td>'.
-					 '<td align="center"><a href="">Eliminar</a></td>
-				  </tr>';
+		while ($ap = mysqli_fetch_assoc($resultado)){
+			echo '<tbody>
+					<tr>
+						<td>'.$ap['id'].'</td>
+						<td>'.$ap['titulo'].'</td>
+						<td>
+							<i class="buttona view"><a href="'.$ap['ruta'].'.jpg" target="_blank">Ver</a></i>
+							<i class="buttona delete">Eliminar</i>
+						</td>
+				  	</tr>
+				  </tbody>';
 		}
 		echo "</table>";
+
 		@mysqli_free_result($resultado2);
 	}
 
@@ -98,6 +135,6 @@ if($_SESSION['user'] != 'coordinador'){
 	mysqli_close($conexion);
 ?>
 	</div>
+	</div>
 </body>
 </html>
-
